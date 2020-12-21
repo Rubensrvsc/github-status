@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import request from 'request'
 
 
 class App extends React.Component {
@@ -8,34 +10,33 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      value: ''
+      listaItens: []
     }
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event){
-    this.setState({value: event.target.value});
+  refresh(){
+
   }
 
-  handleSubmit(event){
-    alert('Um nome foi enviado: '+ this.state.value);
-    event.preventDefault();
+  componentDidMount(){
+    const retorno = request('https://www.githubstatus.com/',  { json: true }, (err, res, body) => {  
+    console.log(body.components[5].name);
+    this.setState({listaItens: body.components});
+    console.log(this.state.listaItens);
+    
+    //this.setState({listaItens: body.components[3]});
+});
+
+
+
   }
   
 render() {
   
   return (
     <div>
-    <form onSubmit={this.handleSubmit}>
-        <label>
-          Nome:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Enviar" />
-      </form>
-      <textarea value={this.state.value}/>
+      {this.state.listaItens.map(status => <h3>Nome: {status.name} Status: {status.status}</h3>)}
       </div>
   );
 }
