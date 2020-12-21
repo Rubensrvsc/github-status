@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import request from 'request'
+import Header from './Header';
+import request from 'request';
 
 
 class App extends React.Component {
@@ -34,6 +35,7 @@ render() {
   
   return (
     <div>
+      <Header/>
       {this.state.listaItens.map(status => <h3>Nome: {status.name} Status: {status.status}</h3>)}
       </div>
   );
