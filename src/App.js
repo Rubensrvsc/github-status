@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Header from './Header';
+import Header from './Header/Header';
 import request from 'request';
 
 
@@ -36,7 +36,10 @@ render() {
   return (
     <div>
       <Header/>
-      {this.state.listaItens.map(status => <h3>Nome: {status.name} Status: {status.status}</h3>)}
+      <ul>
+      {this.state.listaItens.map(status => <li>Nome: {status.name} Status: {status.status}</li>)}
+      </ul>
+      <a class="botao_refresh">Ver status</a>
       </div>
   );
 }
